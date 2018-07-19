@@ -6,7 +6,7 @@ const tau = Math.PI * 2
 
 const drawSpiraly = arg => {
 	const {
-		angle, rOff = 0, pOff = 0, po2, bg, color
+		angle, rOff = 0, pOff = 0, po2, bg, color, dotSize
 	} = arg
 	const size = 2 ** po2
 	const prev = document.querySelector ('svg')
@@ -35,7 +35,7 @@ const drawSpiraly = arg => {
 			attr: {
 				cx: pOff + Math.sqrt (count) * Math.sin (rOff + count * tau * angle),
 				cy: pOff + Math.sqrt (count) * Math.cos (rOff + count * tau * angle),
-				r: '.5',
+				r: dotSize,
 				fill: colorFunc (count)
 			}
 		}))

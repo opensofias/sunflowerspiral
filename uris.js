@@ -53,5 +53,6 @@ onload = onhashchange = _ => {
 const defaults = {
 	angle: phi,
 	po2: 12,
-	color: '#000'
+	color: '#000',
+	dotSize: .5,
 }
