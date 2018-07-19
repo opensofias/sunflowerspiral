@@ -1,8 +1,10 @@
+'use strict'
 
-
-const drawSpiraly = ({
-	angle, rOff = 0, pOff = 0, size = 2 ** 8
-}) => {
+const drawSpiraly = arg => {
+	const {
+		angle, rOff = 0, pOff = 0, po2, bg, color
+	} = arg
+	const size = 2 ** po2
 	const prev = document.querySelector ('svg')
 	prev && document.body.removeChild (prev)
 
@@ -10,14 +12,17 @@ const drawSpiraly = ({
 		svg: true, tag: 'svg',
 		attr: {
 			viewBox:
-				(size ** (1/2) * -1) + ' ' +
-				(size ** (1/2) * -1) + ' ' +
-				(size ** (1/2) * 2) + ' ' +
-				(size ** (1/2) * 2)
+				(size ** (1 / 2) * -1) + ' ' +
+				(size ** (1 / 2) * -1) + ' ' +
+				(size ** (1 / 2) * 2) + ' ' +
+				(size ** (1 / 2) * 2)
 		}
 	})
 	
-	document.body.appendChild (frame)
+	const colorFunc =
+		color.startsWith ('#') ? (() => color) :
+		color.startsWith ('r') ? (num => rotaColor (num, Number.parseFloat (color.slice (1)), angle * 2)) :
+		(() => '#000')
 
 	let count = -1
 	while (count++ < size) {
@@ -27,10 +32,13 @@ const drawSpiraly = ({
 				cx: pOff + Math.sqrt (count) * Math.sin (rOff + count * Math.PI / angle),
 				cy: pOff + Math.sqrt (count) * Math.cos (rOff + count * Math.PI / angle),
 				r: '.5',
-				fill: '#000'
+				fill: colorFunc (count)
 			}
 		}))
 	}
+
+	document.body.appendChild (frame)
+	return arg
 }
 
 const drawGrowSpirally = ({angle, rOff = 0, pOff = 0}) => {
@@ -58,6 +66,6 @@ const drawGrowSpirally = ({angle, rOff = 0, pOff = 0}) => {
 	}
 }
 
-const phi = (1 + Math.sqrt (5)) / 4
+const phi = (1 + Math.sqrt (5)) / 2
 
-drawSpiraly ({angle: phi, size: 2 ** 12})
+onload = _ => drawSpiraly ()
