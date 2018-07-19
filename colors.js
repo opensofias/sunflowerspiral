@@ -1,5 +1,3 @@
-const tau = 2 * Math.PI
-
 const rotaColor = (num, factor, angle) => {
 	return '#' + 
 	hex((Math.sin (num * tau * angle * factor) + 1) / 2) +

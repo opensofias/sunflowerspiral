@@ -1,5 +1,9 @@
 'use strict'
 
+const phi = (1 + Math.sqrt (5)) / 2
+
+const tau = Math.PI * 2
+
 const drawSpiraly = arg => {
 	const {
 		angle, rOff = 0, pOff = 0, po2, bg, color
@@ -21,7 +25,7 @@ const drawSpiraly = arg => {
 	
 	const colorFunc =
 		color.startsWith ('#') ? (() => color) :
-		color.startsWith ('r') ? (num => rotaColor (num, Number.parseFloat (color.slice (1)), angle * 2)) :
+		color.startsWith ('r') ? (num => rotaColor (num, Number.parseFloat (color.slice (1)), angle)) :
 		(() => '#000')
 
 	let count = -1
@@ -29,8 +33,8 @@ const drawSpiraly = arg => {
 		frame.appendChild (elem ({
 			svg: true, tag: 'circle',
 			attr: {
-				cx: pOff + Math.sqrt (count) * Math.sin (rOff + count * Math.PI / angle),
-				cy: pOff + Math.sqrt (count) * Math.cos (rOff + count * Math.PI / angle),
+				cx: pOff + Math.sqrt (count) * Math.sin (rOff + count * tau * angle),
+				cy: pOff + Math.sqrt (count) * Math.cos (rOff + count * tau * angle),
 				r: '.5',
 				fill: colorFunc (count)
 			}
@@ -66,6 +70,5 @@ const drawGrowSpirally = ({angle, rOff = 0, pOff = 0}) => {
 	}
 }
 
-const phi = (1 + Math.sqrt (5)) / 2
 
 onload = _ => drawSpiraly ()
