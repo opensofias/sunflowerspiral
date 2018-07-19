@@ -1,4 +1,4 @@
-# sun flowerspiral
+# sunflower spiral
 draws nature-inspired spirally dot patterns. vi hart has nice videos about them:
 
 https://www.youtube.com/watch?v=ahXIMUkSXX0
