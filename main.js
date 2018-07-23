@@ -2,11 +2,13 @@
 
 const phi = (1 + Math.sqrt (5)) / 2
 
+const lucas = 1 - 1 / phi
+
 const tau = Math.PI * 2
 
 const drawSpiraly = arg => {
 	const {
-		angle, rOff = 0, pOff = 0, po2, bg, color, dotSize
+		angle, rOff = 0, pOff = 0, po2, bg, color, dotSize,
 	} = arg
 	const size = 2 ** po2
 	const prev = document.querySelector ('svg')
@@ -23,9 +25,16 @@ const drawSpiraly = arg => {
 		}
 	})
 	
+	const ca = color.startsWith ('c') ? sunflowerCa (
+		size, Number.parseFloat (color.slice (1))
+	) : []
+
 	const colorFunc =
 		color.startsWith ('#') ? (() => color) :
-		color.startsWith ('r') ? (num => rotaColor (num, Number.parseFloat (color.slice (1)), angle)) :
+		color.startsWith ('r') ? (num => rotaColor (
+			num, Number.parseFloat (color.slice (1)), angle
+		)) :
+		color.startsWith ('c') ? (num => ca [num] ? '#fff' : '#000') :
 		(() => '#000')
 
 	let count = -1
@@ -33,11 +42,11 @@ const drawSpiraly = arg => {
 		frame.appendChild (elem ({
 			svg: true, tag: 'circle',
 			attr: {
-				cx: pOff + Math.sqrt (count) * Math.sin (rOff + count * tau * angle),
-				cy: pOff + Math.sqrt (count) * Math.cos (rOff + count * tau * angle),
+				cx: pOff + count ** .5 * Math.sin (rOff + count * tau * angle),
+				cy: pOff + count ** .5 * Math.cos (rOff + count * tau * angle),
 				r: dotSize,
-				fill: colorFunc (count)
-			}
+				fill: colorFunc (count),
+			},
 		}))
 	}
 
@@ -45,7 +54,9 @@ const drawSpiraly = arg => {
 	return arg
 }
 
-const drawGrowSpirally = ({angle, rOff = 0, pOff = 0}) => {
+// todo: integrate this somehow
+
+/*const drawGrowSpirally = ({angle, rOff = 0, pOff = 0}) => {
 	const prev = document.querySelector ('svg')
 	prev && document.body.removeChild (prev)
 
@@ -68,7 +79,4 @@ const drawGrowSpirally = ({angle, rOff = 0, pOff = 0}) => {
 			}
 		}))
 	}
-}
-
-
-onload = _ => drawSpiraly ()
+}*/

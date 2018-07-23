@@ -16,8 +16,8 @@ const elem = ({
 				el.setAttribute(name, attr[name])
 		}
 		({
-			string () {el.innerText = content},
-			number: ()=> el.innerText = content.toString(),
+			string () {el [svg ? 'innerHTML' : 'innerText'] = content},
+			number: ()=> el [svg ? 'innerHTML' : 'innerText'] = content.toString(),
 			undefined: ()=> undefined,
 			object: ()=> content instanceof Array ?
 				content.forEach(contEl => el.appendChild(contEl)) :
