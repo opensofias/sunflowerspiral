@@ -34,7 +34,7 @@ const sunflowerCa = (size, lut) => {
 	do {
 		result [count] = lookup (
 			lut, sunflowerNeighbors (count).map (
-				pos => result [Math.abs (pos)]
+				pos => result [Math.max (pos, 0)]
 			)
 		)
 	} while (++ count < size)
